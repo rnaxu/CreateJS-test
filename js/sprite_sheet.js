@@ -65,7 +65,7 @@
         // 画像が一つ読み込まれたとき
         queue.addEventListener('fileload', handleFileComplete);
 
-        queue.loadFile('img/sample.png');
+        queue.loadFile('../img/sample.png');
     }
 
     loadImage();

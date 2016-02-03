@@ -27,13 +27,13 @@ module.exports = function (grunt) {
 
     watch: {
       html: {
-        files: ['index.html']
+        files: ['sprite_sheet.html', 'sprite_sheet_builder.html']
       },
       css: {
         files: ['css/style.css']
       },
       js: {
-        files: ['js/test.js']
+        files: ['js/sprite_sheet.js', 'js/sprite_sheet_builder.js']
       },
       options: {
         livereload: true
