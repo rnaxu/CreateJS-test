@@ -17,16 +17,16 @@
     }
 
     // ファイルが1つ読み込まれたとき
-    function fileloadEvent(event) {
+    function handleFileload(event) {
         // event.resultを配列にして保持
         images[event.item.id] = event.result;
     }
 
     // ファイルがすべて読み込まれたとき
-    function completeEvent (event) {
+    function handleFileComplete(event) {
         // イベントを取り除く
-        event.target.removeEventListener('fileload', fileloadEvent);
-        event.target.removeEventListener('complete', completeEvent);
+        event.target.removeEventListener('fileload', handleFileload);
+        event.target.removeEventListener('complete', handleFileComplete);
 
         // アニメーション実行
         initialize();
@@ -39,10 +39,10 @@
 
     // preload
     function loadImage(manifest) {
-        var loader = new createjs.LoadQueue(false);
-        loader.addEventListener('fileload', fileloadEvent);
-        loader.addEventListener('complete', completeEvent);
-        loader.loadManifest(manifest);
+        var preload = new createjs.LoadQueue(false);
+        preload.addEventListener('fileload', handleFileload);
+        preload.addEventListener('complete', handleFileComplete);
+        preload.loadManifest(manifest);
     }
 
     // スプライトシートを生成
@@ -56,7 +56,7 @@
             var index = builder.addFrame(new createjs.Bitmap(image));
             frames.push(index);
         }
-        builder.addAnimation('sample', frames);
+        builder.addAnimation('sample', frames, false, 0.5);
 
         var spriteSheet = builder.build();
 
@@ -77,11 +77,12 @@
         animation.y = stageHeight / 2;
         animation.regX = 41;
         animation.regY = 55;
-        animation.gotoAndPlay('walk');
+        animation.gotoAndPlay('sample');
+        console.log(animation);
         // animation.play();
 
         // アニメーションをステージに加える
-        stage.addChild(sample);
+        stage.addChild(animation);
 
         createjs.Ticker.addEventListener('tick', tickEvent);
     }
