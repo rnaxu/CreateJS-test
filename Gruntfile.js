@@ -25,6 +25,14 @@ module.exports = function (grunt) {
 
     // clean: ['<%= path.build %>'],
 
+    browserify: {
+      app: {
+        files: {
+          'js/sprite_sheet.js': 'js/sprite_sheet/sprite_sheet.js'
+        }
+      }
+    },
+
     watch: {
       html: {
         files: ['sprite_sheet.html', 'sprite_sheet_builder.html']
@@ -33,7 +41,8 @@ module.exports = function (grunt) {
         files: ['css/style.css']
       },
       js: {
-        files: ['js/sprite_sheet.js', 'js/sprite_sheet_builder.js']
+        files: ['js/**/*.js'],
+        tasks: ['build:js']
       },
       options: {
         livereload: true
@@ -50,6 +59,7 @@ module.exports = function (grunt) {
 
   });
 
+  grunt.registerTask('build:js', ['browserify']);
   grunt.registerTask('w', ['connect', 'watch']);
 
 };
